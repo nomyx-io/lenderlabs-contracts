@@ -49,6 +49,9 @@ contract ERC735 is IERC735 {
     /// @param _uri claim uri
     /// @return claimRequestId claim request id
     function addClaim(uint256 _topic, uint256 _scheme, address _issuer, bytes memory _signature, bytes memory _data, string memory _uri) external override returns (uint256 claimRequestId) {
+        
+        require(ITrustedIssuersRegistry(issuerRegistry).hasClaimTopic(_issuer, _topic), "Issuer is not trusted for this claim topic");
+
         claimCount += 1;
         claimRequestId = claimCount;
         bytes32 claimId = keccak256(abi.encodePacked(_issuer, _topic));
@@ -71,6 +74,9 @@ contract ERC735 is IERC735 {
     /// @param _data claim data
     /// @param _uri claim uri
     function changeClaim(bytes32 _claimId, uint256 _topic, uint256 _scheme, address _issuer, bytes memory _signature, bytes memory _data, string memory _uri) external override returns (bool success) {
+        
+        require(ITrustedIssuersRegistry(issuerRegistry).hasClaimTopic(_issuer, _topic), "Issuer is not trusted for this claim topic");
+        
         uint256 claimRequestId = claimIdLookup[_claimId];
         require(claimRequestId > 0, "Claim not found");
         
@@ -90,6 +96,9 @@ contract ERC735 is IERC735 {
     /// @notice remove claim
     /// @param _claimId claim id
     function removeClaim(bytes32 _claimId) external override returns (bool success) {
+
+        require(claimIdLookup[_claimId] > 0, "Claim not found");
+
         uint256 claimRequestId = claimIdLookup[_claimId];
         require(claimRequestId > 0, "Claim not found");
         
