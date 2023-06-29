@@ -27,7 +27,7 @@ contract ERC735 is IERC735 {
     }
 
     /// @notice get claim by claim request id
-    /// @param _claimRequestId claim request id
+    /// @param _topic claim request id
     /// @return topic claim topic
     function getClaimIdsByTopic(uint256 _topic) external view override returns (bytes32[] memory claimIds) {
         return claimsByTopic[_topic];
