@@ -6,6 +6,8 @@ import { IIdentity } from "./interfaces/IIdentity.sol";
 import { IClaimIssuer } from "./interfaces/IClaimIssuer.sol";
 import { Claim } from "./interfaces/IClaimIssuer.sol";
 
+import { ITrustedIssuersRegistry } from "./interfaces/ITrustedIssuersRegistry.sol";
+
 /**
  * @title ERC735
  * @author Sebastian Schepis
