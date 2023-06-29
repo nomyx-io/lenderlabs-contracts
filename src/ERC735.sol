@@ -18,6 +18,11 @@ contract ERC735 is IERC735 {
     mapping(bytes32 => uint256) public claimIdLookup;
     mapping(uint256 => bytes32[]) public claimsByTopic;
 
+    address public issuerRegistry;
+    constructor(address _issuerRegistry) {
+        issuerRegistry = _issuerRegistry;
+    }
+
     /// @notice get claim by claim id
     /// @param _claimId claim id
     /// @return topic claim topic
